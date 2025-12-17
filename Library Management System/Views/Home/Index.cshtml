@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card p-5 shadow-lg text-center" style="max-width: 600px;">
+        <h1>Welcome to Library Management</h1>
+        <p>Manage your books and users easily.</p>
+        <a class="btn btn-primary btn-lg" asp-controller="Books" asp-action="Index">Go to Books</a><br />
+        <a class="btn btn-primary btn-lg" asp-controller="Members" asp-action="Index">Go to Members</a><br />
+        <a class="btn btn-primary btn-lg" asp-controller="IssuedBooks" asp-action="Index">Go to Issued Books</a>
+    </div>
+</div>
