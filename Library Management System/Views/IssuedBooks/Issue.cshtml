@@ -1,0 +1,55 @@
+﻿@model Library_Management_System.Models.BookMemberModel
+
+@{
+    ViewData["Title"] = "Issue Book";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-lg rounded-4">
+                <div class="card-header bg-dark text-white text-center rounded-top-4">
+                    <h4>📚 Issue Book</h4>
+                </div>
+
+                <form asp-action="Issue" method="post">
+
+                    <!-- Book Dropdown -->
+                    <div class="mb-3">
+                        <label class="form-label">Select Book</label>
+                        <select name="bookId" class="form-select" required>
+                            <option value="">-- Select Book --</option>
+                            @foreach (var book in Model.books!)
+                            {
+                                <option value="@book.Id">@book.Title</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!-- Member Dropdown -->
+                    <div class="mb-3">
+                        <label class="form-label">Select Member</label>
+                        <select name="memberId" class="form-select" required>
+                            <option value="">-- Select Member --</option>
+                            @foreach (var member in Model.members!)
+                            {
+                                <option value="@member.Id">@member.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            ✅ Issue Book
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>

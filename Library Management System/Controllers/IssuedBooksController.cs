@@ -1,4 +1,5 @@
-﻿using Library_Management_System.Services.Interfaces;
+﻿using Library_Management_System.Models;
+using Library_Management_System.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library_Management_System.Controllers
@@ -6,19 +7,37 @@ namespace Library_Management_System.Controllers
     public class IssuedBooksController : Controller
     {
         private readonly IIssueService _issueService;
+        private readonly IBookServices _BookService;
+        private readonly IMemberService _MemberService;
 
-        public IssuedBooksController(IIssueService issueService)
+
+        public IssuedBooksController(IIssueService issueService, IBookServices bookService, IMemberService memberService)
         {
             _issueService = issueService;
+            _BookService = bookService;
+            _MemberService = memberService;
+
         }
         public async Task<IActionResult> Index()
         {
             var issuedBooks = await _issueService.GetAllIssuedBooksAsync();
             return View(issuedBooks);
         }
-        public IActionResult Issue()
+        
+        
+        
+        public async Task<IActionResult> Issue()
         {
-            return View();
+            var  books = await _BookService.GetAllAsync();
+            var members = await _MemberService.GetAllAsync();
+
+            var BookMemberModel = new BookMemberModel
+            {
+                books = books,
+                members = members
+            };
+
+            return View(BookMemberModel);
         }
 
         [HttpPost]
@@ -26,7 +45,7 @@ namespace Library_Management_System.Controllers
         {
             var success = await _issueService.IssueBookAsync(bookId, memberId);
 
-            if (!success)
+            if (success == false)
             {
                 ModelState.AddModelError("", "Book not available or invalid member.");
                 return View();

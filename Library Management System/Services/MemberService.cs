@@ -28,13 +28,13 @@ namespace Library_Management_System.Services
 
         public async Task AddAsync(Member member)
         {
-            member.CreatedAt = DateTime.Now;
-            member.UpdatedAt = DateTime.Now;
-            member.CreatedBy = "System";
-            member.UpdatedBy = "System";
+                member.CreatedAt = DateTime.Now;
+                member.UpdatedAt = DateTime.Now;
+                member.CreatedBy = "System";
+                member.UpdatedBy = "System";
 
-            _context.Members.Add(member);
-            await _context.SaveChangesAsync();
+                _context.Members.Add(member);
+                await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Member member)

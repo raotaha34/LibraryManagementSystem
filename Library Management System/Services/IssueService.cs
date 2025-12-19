@@ -1,6 +1,8 @@
 ﻿using Library_Management_System.Models;
 using Library_Management_System.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace Library_Management_System.Services
 {
@@ -16,14 +18,19 @@ namespace Library_Management_System.Services
         {
             return await _context.IssuedBooks
                 .Include(i => i.Member)
-                .Where(i => i.IsActive == true)
+                .Where(i => i.IsActive == true && i.ReturnDate == null)
                 .ToListAsync();
         }
-        // public async Task<List<IssuedBook>> 
+        
 
         public async Task<bool> IssueBookAsync(int bookId, int memberId)
         {
-            var book = await _context.Books.FindAsync(bookId);
+            var alreadyExist = _context.IssuedBooks.Where(i => i.BookId == bookId && i.MemberId == memberId && i.ReturnDate == null);
+            if (alreadyExist.Any())
+            {
+                return false;
+            }
+            var book = _context.Books.Where(x => x.Id == bookId).FirstOrDefault();
             if (book == null || book.Quantity <= 0)
                 return false;
 
@@ -36,7 +43,14 @@ namespace Library_Management_System.Services
                 var issuedBook = new IssuedBook
                 {
                     BookId = bookId,
-                    MemberId = memberId
+                    MemberId = memberId,
+                    IssueDate = DateTime.Now,
+                    ReturnDate = null,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System",
+                    IsActive = true
                 };
 
                 _context.IssuedBooks.Add(issuedBook);
@@ -54,8 +68,8 @@ namespace Library_Management_System.Services
 
         public async Task<bool> ReturnBookAsync(int issuedBookId)
         {
-            var issuedBook = await _context.IssuedBooks
-                .FirstOrDefaultAsync(i => i.Id == issuedBookId);
+            var issuedBook = _context.IssuedBooks
+                .Where(x => x.Id == issuedBookId).FirstOrDefault();
 
             if (issuedBook == null) return false;
             var Book = await _context.Books.FindAsync(issuedBook.BookId);

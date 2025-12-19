@@ -1,4 +1,5 @@
 ﻿using Library_Management_System.Models;
+using Library_Management_System.Services;
 using Library_Management_System.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,10 +46,19 @@ namespace Library_Management_System.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-
-        [HttpPost]
         public async Task<IActionResult> Delete(int id)
+        {
+            var book = await _memberService.GetByIdAsync(id);
+            if (book == null)
+                return NotFound();
+
+            return View(book);
+        }
+
+        // POST: Books/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _memberService.SoftDeleteAsync(id);
             return RedirectToAction(nameof(Index));

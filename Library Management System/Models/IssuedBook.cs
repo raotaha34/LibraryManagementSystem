@@ -24,7 +24,7 @@ public partial class IssuedBook
 
     public string UpdatedBy { get; set; } = null!;
 
-    public bool IsActive { get; set; }
+    public bool IsActive { get; set; } = true;
 
     [ForeignKey(nameof(MemberId))]
     public Member Member { get; set; } = null!;
