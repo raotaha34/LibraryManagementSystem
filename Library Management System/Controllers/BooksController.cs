@@ -12,9 +12,11 @@ namespace Library_Management_System.Controllers
             _bookService = bookService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await _bookService.GetAllAsync());
+            int pageSize = 5;
+            var books = await _bookService.GetAllPaginatedAsync(page, pageSize);
+            return View(books);
         }
 
         public IActionResult Create()

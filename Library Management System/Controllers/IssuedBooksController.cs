@@ -18,9 +18,10 @@ namespace Library_Management_System.Controllers
             _MemberService = memberService;
 
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var issuedBooks = await _issueService.GetAllIssuedBooksAsync();
+            int pageSize = 5;
+            var issuedBooks = await _issueService.GetAllIssuedBooksAsync(page, pageSize);
             return View(issuedBooks);
         }
         

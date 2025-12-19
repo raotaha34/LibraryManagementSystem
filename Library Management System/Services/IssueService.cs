@@ -1,8 +1,11 @@
-﻿using Library_Management_System.Models;
+﻿using Library_Management_System.Common;
+using Library_Management_System.Models;
 using Library_Management_System.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using Library_Management_System.Helpers;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Library_Management_System.Services
 {
@@ -14,12 +17,13 @@ namespace Library_Management_System.Services
         {
             _context = context;
         }
-        public async Task<List<IssuedBook>> GetAllIssuedBooksAsync()
+        public async Task<PaginatedList<IssuedBook>> GetAllIssuedBooksAsync(int page, int pageSize)
         {
-            return await _context.IssuedBooks
+            var query =   _context.IssuedBooks
                 .Include(i => i.Member)
-                .Where(i => i.IsActive == true && i.ReturnDate == null)
-                .ToListAsync();
+                .Where(i => i.IsActive == true && i.ReturnDate == null).OrderByDescending(x => x.IssueDate);
+
+            return await PaginatedHelper<IssuedBook>.CreateAsync(query, page, pageSize);
         }
         
 
