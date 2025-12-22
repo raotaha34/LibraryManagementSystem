@@ -29,8 +29,8 @@ namespace Library_Management_System.Services
 
         public async Task<bool> IssueBookAsync(int bookId, int memberId)
         {
-            var alreadyExist = _context.IssuedBooks.Where(i => i.BookId == bookId && i.MemberId == memberId && i.ReturnDate == null);
-            if (alreadyExist.Any())
+            var alreadyExist = await _context.IssuedBooks.FirstOrDefaultAsync(i => i.BookId == bookId && i.MemberId == memberId && i.ReturnDate == null);
+            if (alreadyExist != null)
             {
                 return false;
             }

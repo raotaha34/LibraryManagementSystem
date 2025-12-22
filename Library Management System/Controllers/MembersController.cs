@@ -28,7 +28,15 @@ namespace Library_Management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Member member)
         { 
-            await _memberService.AddAsync(member);
+            var isAdded = await _memberService.AddAsync(member);
+            if(isAdded == false)
+            {
+                if (!ModelState.IsValid)
+                {
+                    ModelState.AddModelError("", "This member had already been registered.");
+                    return View(member);
+                }
+            }
             return RedirectToAction(nameof(Index));
         }
 

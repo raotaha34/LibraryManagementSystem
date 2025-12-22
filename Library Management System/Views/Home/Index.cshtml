@@ -2,12 +2,50 @@
     ViewData["Title"] = "Home";
 }
 
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    .home-card {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        color: #fff;
+    }
+
+    .home-btn {
+        transition: all 0.3s ease;
+    }
+
+        .home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+</style>
+
 <div class="container mt-5 d-flex justify-content-center">
-    <div class="card p-5 shadow-lg text-center" style="max-width: 600px;">
-        <h1>Welcome to Library Management</h1>
-        <p>Manage your books and users easily.</p>
-        <a class="btn btn-primary btn-lg" asp-controller="Books" asp-action="Index">Go to Books</a><br />
-        <a class="btn btn-primary btn-lg" asp-controller="Members" asp-action="Index">Go to Members</a><br />
-        <a class="btn btn-primary btn-lg" asp-controller="IssuedBooks" asp-action="Index">Go to Issued Books</a>
+    <div class="card home-card p-5 shadow-lg text-center" style="max-width: 600px;">
+
+        <h1 class="fw-bold mb-3">📚 Library Management System</h1>
+        <p class="mb-4 fs-5">
+            Manage books, members, and issued records — all in one place.
+        </p>
+
+        <a class="btn btn-light btn-lg mb-3 home-btn"
+           asp-controller="Books" asp-action="Index">
+            📖 Manage Books
+        </a>
+
+        <a class="btn btn-light btn-lg mb-3 home-btn"
+           asp-controller="Members" asp-action="Index">
+            👤 Manage Members
+        </a>
+
+        <a class="btn btn-light btn-lg home-btn"
+           asp-controller="IssuedBooks" asp-action="Index">
+            🔄 Issued Books
+        </a>
+
     </div>
 </div>

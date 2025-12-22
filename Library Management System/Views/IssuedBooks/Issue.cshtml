@@ -14,15 +14,18 @@
                 </div>
 
                 <form asp-action="Issue" method="post">
-
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <!-- Book Dropdown -->
                     <div class="mb-3">
                         <label class="form-label">Select Book</label>
                         <select name="bookId" class="form-select" required>
                             <option value="">-- Select Book --</option>
-                            @foreach (var book in Model.books!)
-                            {
-                                <option value="@book.Id">@book.Title</option>
+                            @if(Model.books != null)
+                            {     
+                                @foreach (var book in Model.books)
+                                {
+                                    <option value="@book.Id">@book.Title</option>
+                                }
                             }
                         </select>
                     </div>
@@ -47,9 +50,12 @@
                     </div>
 
                 </form>
-
+                
             </div>
 
         </div>
     </div>
 </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,6 +1,7 @@
 ﻿using Library_Management_System.Models;
 using Library_Management_System.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Library_Management_System.Controllers
 {
@@ -46,14 +47,24 @@ namespace Library_Management_System.Controllers
         {
             var success = await _issueService.IssueBookAsync(bookId, memberId);
 
-            if (success == false)
+            var books = await _BookService.GetAllAsync();
+            var members = await _MemberService.GetAllAsync();
+
+            var model = new BookMemberModel
+            {
+                books = books,
+                members = members
+            };
+
+            if (!success)
             {
                 ModelState.AddModelError("", "Book not available or invalid member.");
-                return View();
+                return View(model);   
             }
 
             return RedirectToAction(nameof(Index));
         }
+
 
         // Return book
         public async Task<IActionResult> Return(int id)

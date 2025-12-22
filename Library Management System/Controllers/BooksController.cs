@@ -27,7 +27,16 @@ namespace Library_Management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Book book)
         {
-            await _bookService.AddAsync(book);
+            var isAdded =  await _bookService.AddAsync(book);
+
+            if(isAdded == false)
+            {
+                if (!ModelState.IsValid)
+                {
+                    ModelState.AddModelError("", "This book already exists.");
+                    return View(book);
+                }
+            }
             return RedirectToAction(nameof(Index));
         }
 

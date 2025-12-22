@@ -2,6 +2,7 @@
 using Library_Management_System.Helpers;
 using Library_Management_System.Models;
 using Library_Management_System.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -35,16 +36,34 @@ namespace Library_Management_System.Services
                 .FirstOrDefaultAsync(b => b.Id == id && b.IsActive == true);
         }
 
-        public async Task AddAsync(Book book)
+        public async Task<bool> AddAsync(Book book)
         {
-            book.CreatedAt = DateTime.Now;
-            book.UpdatedAt = DateTime.Now;
-            book.CreatedBy = "System";
-            book.UpdatedBy = book.CreatedBy;
-
-
-            _context.Books.Add(book);
-            await _context.SaveChangesAsync();
+            var existingBook = await _context.Books
+                .FirstOrDefaultAsync(b => b.Title == book.Title && b.Author == book.Author && b.IsActive == true);
+            var softdeletedBook = await _context.Books
+                .FirstOrDefaultAsync(b => b.Title == book.Title && b.Author == book.Author && b.IsActive == false);
+            if (existingBook != null)
+            {
+                return false;
+            }
+            else if (softdeletedBook != null)
+            {
+                softdeletedBook.IsActive = true;
+                _context.Books.Update(softdeletedBook);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                book.CreatedAt = DateTime.Now;
+                book.UpdatedAt = DateTime.Now;
+                book.CreatedBy = "System";
+                book.UpdatedBy = book.CreatedBy;
+                book.IsActive = true;
+                _context.Books.Add(book);
+                await _context.SaveChangesAsync();
+                return true;
+            }
         }
 
         public async Task UpdateAsync(Book book)

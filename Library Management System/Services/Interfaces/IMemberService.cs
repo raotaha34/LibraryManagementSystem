@@ -8,7 +8,7 @@ namespace Library_Management_System.Services.Interfaces
         Task<List<Member>> GetAllAsync();
         Task<PaginatedList<Member>> GetAllPaginatedAsync(int page, int pageSize);
         Task<Member?> GetByIdAsync(int id);
-        Task AddAsync(Member member);
+        Task<bool> AddAsync(Member member);
         Task UpdateAsync(Member member);
         Task SoftDeleteAsync(int id);
     }
