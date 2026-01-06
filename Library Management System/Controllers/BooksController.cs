@@ -40,16 +40,19 @@ namespace Library_Management_System.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> GetBookById(int id)
+        //public async Task<IActionResult> GetBookById(int id)
+        //{
+        //    var book = await _bookService.GetByIdAsync(id);
+        //    if (book == null) return NotFound();
+
+        //    return View(book);
+        //}
+        public async Task<IActionResult> Edit(int id)
         {
             var book = await _bookService.GetByIdAsync(id);
             if (book == null) return NotFound();
 
             return View(book);
-        }
-        public IActionResult Edit()
-        {
-            return View();
         }
 
         [HttpPost]

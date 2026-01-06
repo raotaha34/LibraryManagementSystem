@@ -1,51 +1,175 @@
 ﻿@{
     ViewData["Title"] = "Home";
+    bool isLoggedIn = ViewBag.IsLoggedIn ?? false;
+    string role = ViewBag.Role ?? "";
 }
 
-<style>
-    body {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-    }
-
-    .home-card {
-        backdrop-filter: blur(10px);
-        background: rgba(255, 255, 255, 0.15);
-        border-radius: 20px;
-        color: #fff;
-    }
-
-    .home-btn {
-        transition: all 0.3s ease;
-    }
-
-        .home-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+@if (!isLoggedIn)
+{
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea, #764ba2);
         }
-</style>
 
-<div class="container mt-5 d-flex justify-content-center">
-    <div class="card home-card p-5 shadow-lg text-center" style="max-width: 600px;">
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
 
-        <h1 class="fw-bold mb-3">📚 Library Management System</h1>
-        <p class="mb-4 fs-5">
-            Manage books, members, and issued records — all in one place.
-        </p>
+            .login-card h2 {
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
 
-        <a class="btn btn-light btn-lg mb-3 home-btn"
-           asp-controller="Books" asp-action="Index">
-            📖 Manage Books
-        </a>
+            .login-card input {
+                height: 45px;
+                border-radius: 10px;
+            }
 
-        <a class="btn btn-light btn-lg mb-3 home-btn"
-           asp-controller="Members" asp-action="Index">
-            👤 Manage Members
-        </a>
+        .login-btn {
+            height: 45px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+    </style>
 
-        <a class="btn btn-light btn-lg home-btn"
-           asp-controller="IssuedBooks" asp-action="Index">
-            🔄 Issued Books
-        </a>
+    <div class="container vh-100 d-flex justify-content-center align-items-center">
+        <div class="login-card">
 
+            <h2 class="text-center">Sign In</h2>
+            <p class="text-center text-muted mb-4">
+                Login to access the library system
+            </p>
+
+            @if (ViewBag.LoginError != null)
+            {
+                <div class="alert alert-danger text-center">
+                    @ViewBag.LoginError
+                </div>
+            }
+
+            <form asp-controller = "Account" asp-action="Login" method="post">
+
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control"
+                            required />
+                </div>
+
+                <div class="mb-3">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control"
+                            required />
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 login-btn">
+                    Login
+                </button>
+            </form>
+
+        </div>
     </div>
-</div>
+}
+else if (role == "Admin")
+{
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .home-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            color: #fff;
+        }
+
+        .home-btn {
+            transition: all 0.3s ease;
+        }
+
+            .home-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            }
+    </style>
+
+    <div class="container mt-5 d-flex justify-content-center">
+        <div class="card home-card p-5 shadow-lg text-center" style="max-width: 600px;">
+
+            <h1 class="fw-bold mb-3">📚 Library Management System</h1>
+            <p class="mb-4 fs-5">
+                Manage books, members, and issued records — all in one place.
+            </p>
+
+            <a class="btn btn-light btn-lg mb-3 home-btn"
+               asp-controller="Books" asp-action="Index">
+                📖 Manage Books
+            </a>
+
+            <a class="btn btn-light btn-lg mb-3 home-btn"
+               asp-controller="Members" asp-action="Index">
+                👤 Manage Members
+            </a>
+
+            <a class="btn btn-light btn-lg home-btn"
+               asp-controller="IssuedBooks" asp-action="Index">
+                🔄 Issued Books
+            </a>
+
+        </div>
+    </div>
+}
+else
+{
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .home-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            color: #fff;
+        }
+
+        .home-btn {
+            transition: all 0.3s ease;
+        }
+
+            .home-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            }
+    </style>
+
+    <div class="container mt-5 d-flex justify-content-center">
+        <div class="card home-card p-5 shadow-lg text-center" style="max-width: 600px;">
+
+            <h1 class="fw-bold mb-3">📚 Library Management System</h1>
+            <p class="mb-4 fs-5">
+                Manage books, members, and issued records — all in one place.
+            </p>
+
+            <a class="btn btn-light btn-lg mb-3 home-btn"
+               asp-controller="Home" asp-action="Index">
+                📖 Issued Books
+            </a>
+
+            <a class="btn btn-light btn-lg mb-3 home-btn"
+                asp-controller="Home" asp-action="Index">
+                📖 Returned Books
+            </a>
+
+            <a class="btn btn-light btn-lg home-btn"
+                asp-controller="Home" asp-action="Index">
+                📖 View All Books
+            </a>
+        </div>
+    </div>
+}

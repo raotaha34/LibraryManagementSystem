@@ -17,11 +17,25 @@ builder.Services.AddDbContext<LibraryManagementContext>(options =>
 builder.Services.AddScoped<IBookServices, BookService>();
 builder.Services.AddScoped<IIssueService, IssueService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(540);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 
 var app = builder.Build();
 
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
