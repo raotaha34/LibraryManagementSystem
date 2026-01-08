@@ -1,0 +1,49 @@
+﻿@using Library_Management_System.Models
+@{
+    ViewData["Title"] = "Return Books";
+    var issuedBooks = ViewBag.IssuedBooks as List<IssuedBook>;
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">🔄 Return Books</h2>
+
+    <table class="table table-bordered table-dark">
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Issue Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (issuedBooks != null && issuedBooks.Any())
+            {
+                @foreach (var issue in issuedBooks)
+                {
+                    <tr>
+                        <td>@issue.Book.Title</td>
+                        <td>@issue.IssueDate.ToString("dd-MMM-yyyy")</td>
+                        <td>
+                            <!-- FORM POSTS to ReturnBook -->
+                            <form asp-action="ReturnBook" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@issue.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm">Return</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" class="text-center">No issued books</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <a asp-action="Index" asp-controller="MemberDashboard" class="btn btn-outline-light" style="color:black; border:2px solid black;">Back to Dashboard</a>
+    </div>
+</div>
+

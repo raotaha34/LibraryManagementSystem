@@ -8,15 +8,16 @@
 {
     <style>
         body {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-color:black;
         }
 
         .login-card {
-            background: white;
+            background:white;
             border-radius: 16px;
-            padding: 40px;
+            padding: 30px;
             width: 100%;
-            max-width: 400px;
+            max-width: 600px;
+            height:500px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
 
@@ -35,12 +36,14 @@
             border-radius: 10px;
             font-weight: 600;
         }
-    </style>
 
+  
+
+    </style>
+    
     <div class="container vh-100 d-flex justify-content-center align-items-center">
         <div class="login-card">
-
-            <h2 class="text-center">Sign In</h2>
+            <h2 class="text-center" style="color:black;">Sign In</h2>
             <p class="text-center text-muted mb-4">
                 Login to access the library system
             </p>
@@ -78,21 +81,24 @@ else if (role == "Admin")
 {
     <style>
         body {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-color:black;
         }
 
         .home-card {
             backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.15);
+         background-color:white;
             border-radius: 20px;
-            color: #fff;
+           color: black;
         }
 
         .home-btn {
+            border-radius: 20px;
+            border:2px,solid,black;
             transition: all 0.3s ease;
         }
 
             .home-btn:hover {
+                border: 2px,solid,black;
                 transform: translateY(-3px);
                 box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             }
@@ -102,9 +108,7 @@ else if (role == "Admin")
         <div class="card home-card p-5 shadow-lg text-center" style="max-width: 600px;">
 
             <h1 class="fw-bold mb-3">📚 Library Management System</h1>
-            <p class="mb-4 fs-5">
-                Manage books, members, and issued records — all in one place.
-            </p>
+            
 
             <a class="btn btn-light btn-lg mb-3 home-btn"
                asp-controller="Books" asp-action="Index">
@@ -120,6 +124,11 @@ else if (role == "Admin")
                asp-controller="IssuedBooks" asp-action="Index">
                 🔄 Issued Books
             </a>
+            <hr/>
+            <a class="btn btn-light btn-lg mb-3 home-btn"           
+            style="background-color:#e53935 ;" asp-action="Logout" asp-controller="Account">
+                🚪 Logout
+            </a>
 
         </div>
     </div>
@@ -128,7 +137,7 @@ else
 {
     <style>
         body {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-color: black;
         }
 
         .home-card {
@@ -146,30 +155,9 @@ else
                 transform: translateY(-3px);
                 box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             }
+
+        
     </style>
 
-    <div class="container mt-5 d-flex justify-content-center">
-        <div class="card home-card p-5 shadow-lg text-center" style="max-width: 600px;">
 
-            <h1 class="fw-bold mb-3">📚 Library Management System</h1>
-            <p class="mb-4 fs-5">
-                Manage books, members, and issued records — all in one place.
-            </p>
-
-            <a class="btn btn-light btn-lg mb-3 home-btn"
-               asp-controller="Home" asp-action="Index">
-                📖 Issued Books
-            </a>
-
-            <a class="btn btn-light btn-lg mb-3 home-btn"
-                asp-controller="Home" asp-action="Index">
-                📖 Returned Books
-            </a>
-
-            <a class="btn btn-light btn-lg home-btn"
-                asp-controller="Home" asp-action="Index">
-                📖 View All Books
-            </a>
-        </div>
-    </div>
 }

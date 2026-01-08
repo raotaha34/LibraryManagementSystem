@@ -69,7 +69,13 @@ namespace Library_Management_System.Services
                 throw ex;
             }
         }
-
+        public async Task<List<IssuedBook>> GetIssuedBooksByMemberAsync(int memberId)
+        {
+            return await _context.IssuedBooks
+                .Where(ib => ib.MemberId == memberId && ib.IsActive && ib.ReturnDate == null)
+                .Include(ib => ib.Book)   // 🔹 Include the Book for Razor view
+                .ToListAsync();
+        }
         public async Task<bool> ReturnBookAsync(int issuedBookId)
         {
             var issuedBook = _context.IssuedBooks

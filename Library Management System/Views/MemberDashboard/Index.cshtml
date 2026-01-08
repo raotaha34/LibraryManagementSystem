@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "MemberDashboard";
+
+}
+
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="dashboard-card text-center">
+        <h2 class="mb-5">👤 Member Dashboard</h2>
+
+        <div class="d-flex flex-column align-items-center gap-4">
+            <!-- Show Books button -->
+            <a asp-action="ViewBooks" asp-controller="MemberDashboard" class="dashboard-btn">
+                📖 Show Books
+            </a>
+
+            <!-- Return Books button -->
+            <a asp-action="ReturnBooks" asp-controller="MemberDashboard" class="dashboard-btn">
+                🔄 Return Books
+            </a>
+
+            <!-- Logout button -->
+            <a asp-action="Logout" asp-controller="Account" class="dashboard-btn logout-btn">
+                🚪 Logout
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #000000, #333333); /* dark black background */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
+
+
+
+
+     .dashboard-card {
+        background-color: white;
+        border-radius: 20px;
+        padding: 40px 30px;
+        width: 520px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+        }
+
+        h2 {
+            font-weight: 700;
+            color:black;
+        }
+
+    .dashboard-btn{
+       height:50px;
+       width:350px;
+        border-radius: 12px;
+        font-weight: 600;
+        background: #000; /* black button */
+        color: white;
+        border: none;
+        transition: all 0.3s ease;
+        text-decoration:none;
+        align-items:center;
+        text-align:center;
+        font-size:20px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+        .dashboard-btn:hover {
+            background: #222; /* Slightly lighter on hover */
+            transform: scale(1.05);
+        }
+
+    .logout-btn {
+        background: #e53935; /* bright red logout */
+    }
+</style>
+

@@ -28,4 +28,8 @@ public partial class IssuedBook
 
     [ForeignKey(nameof(MemberId))]
     public Member Member { get; set; } = null!;
+
+    public Book Book { get; set; } = null!;
+
+
 }

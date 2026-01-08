@@ -8,5 +8,9 @@ namespace Library_Management_System.Services.Interfaces
         Task<PaginatedList<IssuedBook>> GetAllIssuedBooksAsync(int page, int pageSize);
         Task<bool> IssueBookAsync(int bookId, int memberId);
         Task<bool> ReturnBookAsync(int issuedBookId);
+
+        Task<List<IssuedBook>> GetIssuedBooksByMemberAsync(int memberId);
     }
 }
+
+

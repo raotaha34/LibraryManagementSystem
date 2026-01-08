@@ -11,24 +11,32 @@ namespace Library_Management_System.Controllers
         {
             _accountService = accountService;
         }
-
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
+            // Validate user using your existing service
             var user = _accountService.ValidateUser(email, password);
 
             if (user == null)
             {
+                // Login failed: stay on login page and show error
                 ViewBag.LoginError = "Invalid email or password";
-                ViewBag.isLoggedIn = false;
-                return RedirectToAction("Index", "Home");
+                return View("Index"); // show login page again
             }
 
+            // Login successful: store session values
             HttpContext.Session.SetInt32("UserId", user.Id);
             HttpContext.Session.SetString("UserRole", user.Role);
 
-            return RedirectToAction("Index", "Home");
+            // Redirect based on role
+            if (user.Role == "Member")
+                return RedirectToAction("Index", "MemberDashboard"); // member goes to dashboard
 
+            if (user.Role == "Admin")
+                return RedirectToAction("Index", "Home"); // admin goes to home/admin dashboard
+
+            // fallback
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Logout()
@@ -36,6 +44,9 @@ namespace Library_Management_System.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
+
+    
+
     }
 
 }
