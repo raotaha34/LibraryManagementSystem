@@ -13,29 +13,29 @@ builder.Services.AddDbContext<LibraryManagementContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-// Register BookService
+// Register services
 builder.Services.AddScoped<IBookServices, BookService>();
 builder.Services.AddScoped<IIssueService, IssueService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 
+// Add distributed memory cache (required for sessions)
 builder.Services.AddDistributedMemoryCache();
 
+// Add session support
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(540);
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
 
-
 var app = builder.Build();
 
+// Configure middleware
 app.UseStaticFiles();
 app.UseRouting();
-
-app.UseSession();
-
+app.UseSession(); // must be BEFORE UseAuthorization()
 app.UseAuthorization();
 
 app.MapControllerRoute(

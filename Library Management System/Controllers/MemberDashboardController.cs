@@ -25,7 +25,7 @@ namespace Library_Management_System.Controllers
             if (memberId == null || role != "Member")
                 return RedirectToAction("Index", "Home"); 
 
-            return View("Index"); 
+            return View("Index","MemberDashboard"); 
         }
 
         // View all books page
@@ -64,5 +64,7 @@ namespace Library_Management_System.Controllers
             await _issueService.ReturnBookAsync(id);
             return RedirectToAction("ReturnBooks");
         }
+
+    
     }
 }

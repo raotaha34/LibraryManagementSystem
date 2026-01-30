@@ -1,0 +1,17 @@
+﻿<div class="container mt-5 text-center">
+    <h3>Enable Two-Factor Authentication</h3>
+    <p>Scan this QR code with your Authenticator app</p>
+
+    <img src="@ViewBag.QrCodeUrl" />
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form method="post">
+        <input name="code" min="6" max="6" class="form-control mt-3"
+               placeholder="Enter 6-digit code" required />
+        <button class="btn btn-primary mt-2" asp-controller="Account" asp-action="Enable2FA">Verify & Enable</button>
+    </form>
+</div>

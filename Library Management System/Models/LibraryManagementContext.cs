@@ -6,10 +6,7 @@ namespace Library_Management_System.Models;
 
 public partial class LibraryManagementContext : DbContext
 {
-    public LibraryManagementContext()
-    {
-    }
-
+  
     public LibraryManagementContext(DbContextOptions<LibraryManagementContext> options)
         : base(options)
     {
@@ -28,17 +25,12 @@ public partial class LibraryManagementContext : DbContext
         modelBuilder.Entity<Book>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Books__3214EC0748143684");
-
             entity.Property(e => e.Author).HasMaxLength(255);
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())").HasColumnType("datetime");
             entity.Property(e => e.CreatedBy).HasMaxLength(255);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.Title).HasMaxLength(255);
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("(getdate())").HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy).HasMaxLength(255);
         });
 

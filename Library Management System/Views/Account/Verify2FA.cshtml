@@ -1,0 +1,27 @@
+﻿<div class="container vh-100 d-flex justify-content-center align-items-center">
+    <div class="login-card">
+
+        <h3 class="text-center">Two-Factor Authentication</h3>
+        <p class="text-muted text-center">
+            Enter code from your Authenticator app
+        </p>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger text-center">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form method="post">
+            <input type="text" name="code"
+                   class="form-control mb-3"
+                   placeholder="123456"
+                   required />
+
+            <button class="btn btn-primary w-100">
+                Verify
+            </button>
+        </form>
+    </div>
+</div>

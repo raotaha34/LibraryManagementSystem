@@ -125,39 +125,25 @@ else if (role == "Admin")
                 🔄 Issued Books
             </a>
             <hr/>
-            <a class="btn btn-light btn-lg mb-3 home-btn"           
-            style="background-color:#e53935 ;" asp-action="Logout" asp-controller="Account">
+
+            <hr/>
+            <a class="btn btn-light btn-lg home-btn" style="background-color:#e53935;"
+               asp-action="Logout" asp-controller="Account">
                 🚪 Logout
             </a>
+            <hr>
+            <form method="get" asp-controller="Account" asp-action="Enable2FA">
+                <button type="submit" class="btn btn-primary">
+                    Enable Two-Factor Authentication
+                </button>
+            </form>
 
         </div>
     </div>
 }
-else
+@if (role == "Member")
 {
-    <style>
-        body {
-            background-color: black;
-        }
-
-        .home-card {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            color: #fff;
-        }
-
-        .home-btn {
-            transition: all 0.3s ease;
-        }
-
-            .home-btn:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            }
-
-        
-    </style>
-
-
+    <script>
+        window.location.href = '@Url.Action("Index", "MemberDashboard")';
+    </script>
 }

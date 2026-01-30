@@ -45,7 +45,7 @@ namespace Library_Management_System.Services
             }
             else if(softdeletedMember != null){
                 softdeletedMember.IsActive = true;
-                member.PasswordHash = BCrypt.Net.BCrypt.HashPassword(member.PasswordHash);
+                // member.PasswordHash = BCrypt.Net.BCrypt.HashPassword(member.PasswordHash);
                 _context.Members.Update(softdeletedMember);
                 await _context.SaveChangesAsync();
                 return true;
@@ -56,7 +56,7 @@ namespace Library_Management_System.Services
                 member.UpdatedAt = DateTime.Now;
                 member.CreatedBy = "System";
                 member.UpdatedBy = "System";
-                member.PasswordHash = BCrypt.Net.BCrypt.HashPassword(member.PasswordHash);
+                // member.PasswordHash = BCrypt.Net.BCrypt.HashPassword(member.PasswordHash);
                 _context.Members.Add(member);
                 await _context.SaveChangesAsync();
                 return true;
@@ -69,8 +69,7 @@ namespace Library_Management_System.Services
             member.UpdatedAt = DateTime.Now;
             member.CreatedBy = "System";
             member.UpdatedBy = member.CreatedBy;
-            member.RoleId = 2;
-            member.PasswordHash = BCrypt.Net.BCrypt.HashPassword(member.PasswordHash);
+            // member.PasswordHash = BCrypt.Net.BCrypt.HashPassword(member.PasswordHash);
             _context.Members.Update(member);
             await _context.SaveChangesAsync();
         }

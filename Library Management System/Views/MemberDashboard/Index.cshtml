@@ -17,11 +17,16 @@
             <a asp-action="ReturnBooks" asp-controller="MemberDashboard" class="dashboard-btn">
                 🔄 Return Books
             </a>
-
             <!-- Logout button -->
             <a asp-action="Logout" asp-controller="Account" class="dashboard-btn logout-btn">
-                🚪 Logout
-            </a>
+               Logout 🚪
+           </a>
+           <form method="post" asp-controller="Account" asp-action="Enable2FA">
+          <button type="submit" class="btn btn-primary">
+           Enable Two-Factor Authentication
+         </button>
+         </form>
+            
         </div>
     </div>
 </div>

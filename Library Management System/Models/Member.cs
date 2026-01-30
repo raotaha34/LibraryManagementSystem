@@ -28,4 +28,9 @@ public partial class Member
     public string PasswordHash { get; set; } = null!;
 
     public virtual RoleMaster Role { get; set; } = null!;
+
+    public bool TwoFactorEnabled { get; set; } = false;
+    public string? TwoFactorSecret { get; set; }
+
+    
 }

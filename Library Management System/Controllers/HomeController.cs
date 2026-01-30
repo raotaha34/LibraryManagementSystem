@@ -16,12 +16,9 @@ namespace Library_Management_System.Controllers
         public IActionResult Index()
         {
 
-            ViewBag.IsLoggedIn = HttpContext.Session.GetInt32("UserId")
-                != null;
+            ViewBag.IsLoggedIn = HttpContext.Session.GetInt32("UserId") != null;
             ViewBag.Role = HttpContext.Session.GetString("UserRole");
-
             return View();
-         
         }
 
         public IActionResult Privacy()
